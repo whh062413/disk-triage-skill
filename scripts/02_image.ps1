@@ -11,10 +11,14 @@
 #
 # PITFALL: never run anything else against the same device while this runs.
 # Concurrent access has been observed to produce read errors and misplaced data.
+#
+# -Volume is mandatory on purpose: no default drive letter exists anywhere in
+# disk-triage. -OutDir must be on a DIFFERENT physical disk than the source;
+# check the pair with 00_show_devices.ps1 -Source ... -WorkDir ...
 
 [CmdletBinding()]
 param(
-    [string]$Volume = '\\.\E:',
+    [Parameter(Mandatory=$true)][string]$Volume,
     [Parameter(Mandatory=$true)][string]$OutDir,
     [int64]$Length = 0,             # 0 = infer from partition/volume size
     [int]$ChunkKB = 1024,

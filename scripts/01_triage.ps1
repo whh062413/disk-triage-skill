@@ -9,10 +9,14 @@
 #
 #   .\01_triage.ps1 -Volume '\\.\E:'
 #   .\01_triage.ps1 -Volume 'E:' -ReportDir 'D:\case\30_REPORT'
+#
+# -Volume is mandatory on purpose: no default drive letter exists anywhere in
+# disk-triage. Run 00_show_devices.ps1 first if you are unsure which letter is
+# the failing external device.
 
 [CmdletBinding()]
 param(
-    [string]$Volume = '\\.\E:',
+    [Parameter(Mandatory=$true)][string]$Volume,
     [int]$ReservedScan = 64,
     [string]$ReportDir = ''
 )
